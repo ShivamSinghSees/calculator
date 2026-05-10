@@ -42,14 +42,15 @@ function Stepper({ label, value, onChange, min = 0, max, step = 1, hint }) {
         </span>
         {hint && <span className="text-[10px] text-slate-600">{hint}</span>}
       </div>
-      <div className="flex h-14 items-stretch overflow-hidden rounded-xl border border-slate-700 bg-slate-900 sm:h-16">
+      <div className="flex h-12 items-stretch overflow-hidden rounded-xl border border-slate-700 bg-slate-900 sm:h-16">
         <button
           type="button"
           onClick={dec}
-          className="flex w-12 shrink-0 items-center justify-center text-slate-300 transition active:bg-slate-800 disabled:text-slate-700 sm:w-14"
+          className="flex w-9 shrink-0 items-center justify-center text-slate-300 transition active:bg-slate-800 disabled:text-slate-700 sm:w-14"
           disabled={value <= min}
         >
-          <Minus size={22} />
+          <Minus size={18} className="sm:hidden" />
+          <Minus size={22} className="hidden sm:block" />
         </button>
         <input
           type="number"
@@ -63,15 +64,16 @@ function Stepper({ label, value, onChange, min = 0, max, step = 1, hint }) {
             if (max != null) clamped = Math.min(max, clamped);
             onChange(clamped);
           }}
-          className="stepper-input w-full min-w-0 border-0 bg-slate-900 text-center text-2xl font-bold text-slate-100 focus:outline-none focus:ring-0 sm:text-3xl"
+          className="stepper-input w-full min-w-0 border-0 bg-slate-900 text-center text-xl font-bold text-slate-100 focus:outline-none focus:ring-0 sm:text-3xl"
         />
         <button
           type="button"
           onClick={inc}
-          className="flex w-12 shrink-0 items-center justify-center text-slate-300 transition active:bg-slate-800 disabled:text-slate-700 sm:w-14"
+          className="flex w-9 shrink-0 items-center justify-center text-slate-300 transition active:bg-slate-800 disabled:text-slate-700 sm:w-14"
           disabled={max != null && value >= max}
         >
-          <Plus size={22} />
+          <Plus size={18} className="sm:hidden" />
+          <Plus size={22} className="hidden sm:block" />
         </button>
       </div>
     </div>
@@ -99,7 +101,7 @@ function PointEditor({
   };
 
   return (
-    <div className="rounded-2xl border border-slate-800 bg-slate-900/40 p-4 sm:p-5">
+    <div className="rounded-2xl border border-slate-800 bg-slate-900/40 p-3 sm:p-5">
       <div className="mb-3 flex items-center gap-2">
         <span className={`h-2 w-2 rounded-full ${accentBar}`}></span>
         <span
@@ -108,7 +110,7 @@ function PointEditor({
           {title}
         </span>
       </div>
-      <div className="grid grid-cols-3 gap-2 sm:gap-3">
+      <div className="grid grid-cols-3 gap-1.5 sm:gap-3">
         <Stepper
           label="Over"
           value={over}
@@ -194,7 +196,7 @@ export default function App() {
     <div className="min-h-screen pb-24">
       {/* Sticky results bar (mobile-friendly) */}
       <div className="sticky top-0 z-10 border-b border-slate-800 bg-slate-950/95 backdrop-blur supports-[backdrop-filter]:bg-slate-950/75">
-        <div className="mx-auto max-w-3xl px-4 py-3 sm:px-6">
+        <div className="mx-auto max-w-3xl px-3 py-3 sm:px-6">
           {result.error ? (
             <div className="text-sm text-rose-400">{result.error}</div>
           ) : (
@@ -231,7 +233,7 @@ export default function App() {
         </div>
       </div>
 
-      <div className="mx-auto max-w-3xl px-4 pt-5 sm:px-6">
+      <div className="mx-auto max-w-3xl px-3 pt-5 sm:px-6">
         <header className="mb-5 flex items-center justify-between gap-3">
           <div className="flex items-center gap-2.5">
             <div className="rounded-lg bg-emerald-500/10 p-1.5 text-emerald-400">
