@@ -34,13 +34,26 @@ function Stepper({ label, value, onChange, min = 0, max, step = 1, hint }) {
   const dec = () => onChange(Math.max(min, value - step));
   const inc = () =>
     onChange(max != null ? Math.min(max, value + step) : value + step);
+  const clear = () => onChange("");
+
+  const displayValue = value === 0 || value === "" ? "" : value;
+
   return (
     <div className="flex flex-col gap-1.5">
       <div className="flex items-baseline justify-between">
         <span className="text-[11px] font-medium uppercase tracking-wider text-slate-400">
           {label}
         </span>
-        {hint && <span className="text-[10px] text-slate-600">{hint}</span>}
+        <div className="flex items-center gap-2">
+          {hint && <span className="text-[10px] text-slate-600">{hint}</span>}
+          <button
+            type="button"
+            onClick={clear}
+            className="text-[10px] text-slate-500 hover:text-rose-400 transition"
+          >
+            Clear
+          </button>
+        </div>
       </div>
       <div className="flex h-12 items-stretch overflow-hidden rounded-xl border border-slate-700 bg-slate-900 sm:h-16">
         <button
@@ -56,15 +69,20 @@ function Stepper({ label, value, onChange, min = 0, max, step = 1, hint }) {
           type="number"
           inputMode="numeric"
           pattern="[0-9]*"
-          value={value}
+          value={displayValue}
+          placeholder="0"
           onChange={(e) => {
-            const v = e.target.value === "" ? 0 : +e.target.value;
-            if (Number.isNaN(v)) return;
+            const v = e.target.value === "" ? "" : +e.target.value;
+            if (v !== "" && Number.isNaN(v)) return;
+            if (v === "") {
+              onChange("");
+              return;
+            }
             let clamped = Math.max(min, v);
             if (max != null) clamped = Math.min(max, clamped);
             onChange(clamped);
           }}
-          className="stepper-input w-full min-w-0 border-0 bg-slate-900 text-center text-xl font-bold text-slate-100 focus:outline-none focus:ring-0 sm:text-3xl"
+          className="stepper-input w-full min-w-0 border-0 bg-slate-900 text-center text-xl font-bold text-slate-100 placeholder:text-slate-600 focus:outline-none focus:ring-0 sm:text-3xl"
         />
         <button
           type="button"
@@ -110,7 +128,7 @@ function PointEditor({
           {title}
         </span>
       </div>
-      <div className="grid grid-cols-3 gap-1.5 sm:gap-3">
+      <div className="grid grid-cols-1 gap-3 sm:grid-cols-3 sm:gap-3">
         <Stepper
           label="Over"
           value={over}
