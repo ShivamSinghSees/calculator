@@ -42,14 +42,14 @@ function Stepper({ label, value, onChange, min = 0, max, step = 1, hint }) {
         </span>
         {hint && <span className="text-[10px] text-slate-600">{hint}</span>}
       </div>
-      <div className="flex items-stretch overflow-hidden rounded-xl border border-slate-700 bg-slate-900">
+      <div className="flex h-14 items-stretch overflow-hidden rounded-xl border border-slate-700 bg-slate-900 sm:h-16">
         <button
           type="button"
           onClick={dec}
-          className="flex w-12 items-center justify-center text-slate-300 transition active:bg-slate-800 disabled:text-slate-700"
+          className="flex w-12 shrink-0 items-center justify-center text-slate-300 transition active:bg-slate-800 disabled:text-slate-700 sm:w-14"
           disabled={value <= min}
         >
-          <Minus size={18} />
+          <Minus size={22} />
         </button>
         <input
           type="number"
@@ -63,15 +63,15 @@ function Stepper({ label, value, onChange, min = 0, max, step = 1, hint }) {
             if (max != null) clamped = Math.min(max, clamped);
             onChange(clamped);
           }}
-          className="stepper-input w-full min-w-0 border-0 bg-slate-900 text-center text-xl font-bold text-slate-100 focus:outline-none focus:ring-0"
+          className="stepper-input w-full min-w-0 border-0 bg-slate-900 text-center text-2xl font-bold text-slate-100 focus:outline-none focus:ring-0 sm:text-3xl"
         />
         <button
           type="button"
           onClick={inc}
-          className="flex w-12 items-center justify-center text-slate-300 transition active:bg-slate-800 disabled:text-slate-700"
+          className="flex w-12 shrink-0 items-center justify-center text-slate-300 transition active:bg-slate-800 disabled:text-slate-700 sm:w-14"
           disabled={max != null && value >= max}
         >
-          <Plus size={18} />
+          <Plus size={22} />
         </button>
       </div>
     </div>
